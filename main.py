@@ -15,6 +15,10 @@
 # limitations under the License.
 #
 import webapp2
+import cgi
+
+def escape_html(s):
+    return cgi.escape(s, quote = True)
 
 form="""
 <form method="post">
@@ -43,7 +47,48 @@ class MainHandler(webapp2.RequestHandler):
         self.response.out.write(form)
 
     def post(self):
-        self.response.out.write("Thanks! That's a totally valid day!")
+        user_month = valid_month(self.request.get('month'))
+        user_day = valid_day(self.request.get('day'))
+        user_year = valid_year(self.request.get('day'))
+
+        if not (user_month and user_day and user_year)
+            self.response.out.write(form)
+        else:
+            self.response.out.write("Thanks!  That's a totally valid day!")
+
+Month = ['January', 'February',
+         'March',
+         'April',
+         'May',
+         'June',
+         'July',
+         'August',
+         'September',
+         'October',
+         'November',
+         'December']
+
+month_abbvs = dict((m[:3].lower(), m) for m in months)
+
+def valid_month
+    if month:
+        short_month = month[:3].lower()
+        return month_abbvs.get(short_month)
+
+def valid_day(day):
+    try:
+        d = int(day)
+        if 1 <= d <= 31:
+            return d
+    except ValueError:
+            pass
+    return None
+
+def valid_year(year):
+    if year and year.isdigit():
+        year = int(year)
+        if year > 1900 and year < 2020:
+            return year
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)

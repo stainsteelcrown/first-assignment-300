@@ -2,8 +2,7 @@
 #I am copying the answer to valid month in an attempt to learn python
 #This program verifies that a user enters a valid month
 
-month = ['January',
-         'February',
+Month = ['January', 'February',
          'March',
          'April',
          'May',
